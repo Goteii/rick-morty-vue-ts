@@ -1,7 +1,5 @@
 <template>
   <nav class="navbar">
-    <!-- <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> -->
     <img alt="rick-morty-logo" class="logo-img" src="../assets/logo.png" />
     <TheSearchbar />
   </nav>
@@ -20,14 +18,37 @@ export default class TheNavbar extends Vue {}
 
 <style lang="scss" scoped>
 .navbar {
-  position: relative;
-  min-height: 30%;
+  position: absolute;
+  top: 0;
+  min-height: 12.5%;
+  width: 100%;
   padding: 30px;
   display: flex;
-  background: red;
+  align-content: center;
+  padding-left: 5%;
 }
-.logo-img {
-  width: 10%;
-  height: auto;
+@media (min-width: 1025px) {
+  .logo-img {
+    width: 12.5%;
+  }
+}
+@media (max-width: 1024px) {
+  .logo-img {
+    width: 20%;
+  }
+}
+@media (max-width: 768px) {
+  .logo-img {
+    width: 25%;
+  }
+}
+@media (max-width: 480px) {
+  .navbar {
+    margin-left: 0%;
+    justify-content: space-around;
+  }
+  .logo-img {
+    width: 45%;
+  }
 }
 </style>
