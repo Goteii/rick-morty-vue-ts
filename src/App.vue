@@ -2,6 +2,7 @@
   <div id="app">
     <TheNavbar />
     <!-- <router-view /> -->
+  
   </div>
 </template>
 
@@ -17,12 +18,15 @@ export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500; // medium
+  font-size: 16px;
+  // font-weight: 400 //regular
 }
 
 // .nav {
