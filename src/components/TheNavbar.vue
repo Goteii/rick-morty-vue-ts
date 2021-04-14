@@ -18,9 +18,8 @@ export default class TheNavbar extends Vue {}
 
 <style lang="scss" scoped>
 .navbar {
-  position: absolute;
+  position: relative;
   top: 0;
-  min-height: 12.5%;
   width: 100%;
   padding: 30px;
   display: flex;
