@@ -13,14 +13,17 @@ const routes: Array<RouteConfig> = [
   {
     path: "/favorites",
     name: "Favorites",
-    component: () =>
-      import( "../views/Favorites.vue"),
+    component: () => import("../views/Favorites.vue"),
+  },
+  {
+    path: "*",
+    redirect: "/",
   },
 ];
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: "history",
 });
 
 export default router;
