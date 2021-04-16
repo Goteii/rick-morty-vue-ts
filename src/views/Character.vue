@@ -28,7 +28,7 @@
       <li>{{ species }}</li>
       <li>{{ lastEpisode }}</li>
       <li>
-        <button class="favorite-btn">
+        <button class="favorite-btn" @click="addToFavorite(characterID)">
           <img src="../assets/blue-star.png" />
         </button>
       </li>
@@ -42,11 +42,11 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({})
 export default class Character extends Vue {
   @Prop({ required: true, type: String }) readonly photo!: string;
-  @Prop({ required: true, type: Number }) readonly characterID!: number;
+  @Prop({ required: true, type: String }) readonly characterID!: string;
   @Prop({ required: true, type: String }) readonly name!: string;
   @Prop({ required: true, type: String }) readonly gender!: string;
   @Prop({ required: true, type: String }) readonly species!: string;
-  @Prop({ required: true, type: Number }) readonly lastEpisode!: number;
+  @Prop({ required: true, type: String }) readonly lastEpisode!: string;
 }
 </script>
 

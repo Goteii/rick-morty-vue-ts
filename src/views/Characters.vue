@@ -3,6 +3,10 @@
     <ul class="characters-headers">
       <li v-for="header in headers" :key="header.id">{{ header }}</li>
     </ul>
+    <div class="loading" v-if="loading">Loading, please wait..</div>
+    <div class="error" v-if="error">
+      Unexpected error, please try again later!
+    </div>
     <Character
       v-for="character in charactersApi"
       :key="character.id"
@@ -11,16 +15,15 @@
       :name="character.name"
       :gender="character.gender"
       :species="character.species"
-      :lastEpisode="character.episode.length"
+      :lastEpisode="character.episode[character.episode.length - 1].episode"
     />
-    <!-- {{ charactersApi }} -->
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Character from "./Character.vue";
-import { axiosInstance } from "../api/api";
+import axios from "axios";
 @Component({
   components: {
     Character,
@@ -37,10 +40,48 @@ export default class Characters extends Vue {
     "Add To Favorites",
   ];
   charactersApi = [];
-  mounted(): void {
-    axiosInstance
-      .get("character")
-      .then((res: any) => (this.charactersApi = res.data.results));
+  loading = true;
+  error = false;
+  // currentPage = 1;
+  // charactersOnPage = 8;
+  // indexOfLastCharacter = this.currentPage * this.charactersOnPage;
+  // indexOfFirstCharacter = this.indexOfLastCharacter - this.charactersOnPage;
+  // currentCharacters = [];
+  // currentPageNumber(pageNumber: number): void {
+  //   this.currentPage = pageNumber;
+  // }
+  async created(): Promise<void> {
+    try {
+      let result = await axios({
+        method: "POST",
+        url: "https://rickandmortyapi.com/graphql",
+        data: {
+          query: `
+          {
+            characters {
+            results {
+              name
+              id
+              gender
+              species
+              image
+              episode {
+                episode
+              }
+              }
+            }
+          }
+          `,
+        },
+      });
+      this.charactersApi = result.data.data.characters.results;
+    } catch (e) {
+      console.error(e);
+      this.error = true;
+      this.loading = false;
+    } finally {
+      this.loading = false;
+    }
   }
 }
 </script>
@@ -57,6 +98,24 @@ export default class Characters extends Vue {
     color: #a9b1bd;
     padding: 1em;
     width: 80%;
+  }
+
+  .loading {
+    background-color: #fcfcfc;
+    display: flex;
+    padding: 2em;
+    justify-content: center;
+    font-size: 20px;
+    font-style: italic;
+  }
+  .error {
+      background-color: #fcfcfc;
+    display: flex;
+    padding: 2em;
+    justify-content: center;
+    font-size: 20px;
+    font-style: italic;
+    color: red;
   }
 }
 
