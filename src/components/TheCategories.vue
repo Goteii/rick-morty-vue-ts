@@ -25,7 +25,8 @@
 
       &.router-link-exact-active {
         color: #11b0c8;
-        text-decoration: underline solid 4px;
+        text-decoration: underline solid 3px;
+        text-underline-offset: 5px;
       }
     }
   }
@@ -43,12 +44,12 @@
 }
 @media (max-width: 768px) {
   .categories {
-    width: 42.5%;
+    width: 50%;
   }
 }
 @media (max-width: 480px) {
   .categories {
-    width: 60%;
+    width: 100%;
   }
 }
 </style>
