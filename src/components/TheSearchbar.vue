@@ -16,6 +16,10 @@
   display: flex;
   align-items: center;
 
+  ::placeholder {
+    color: #a9b1bd;
+  }
+
   .searchbar--input {
     position: relative;
     max-height: 100%;
@@ -25,6 +29,7 @@
     border: 1px solid #a9b1bd;
     background: url("../assets/search-icon.png") no-repeat scroll 95% 50%;
     padding-left: 2.5%;
+    font-weight: 500;
   }
 }
 
