@@ -18,7 +18,8 @@
   .categories {
     display: flex;
     justify-content: space-around;
-
+    font-weight: 500;
+    font-size: 16px;
     a {
       text-decoration: none;
       color: #a9b1bd;

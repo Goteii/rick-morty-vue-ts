@@ -11,6 +11,7 @@ import { Vue, Component } from "vue-property-decorator";
 import TheNavbar from "./components/TheNavbar.vue";
 import TheCategories from "./components/TheCategories.vue";
 import Favorites from "./views/Favorites.vue";
+import { Action } from "vuex-class";
 @Component({
   components: {
     TheNavbar,
@@ -18,7 +19,12 @@ import Favorites from "./views/Favorites.vue";
     Favorites,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Action("characters/fetchCharacters") fetchCharacters!: () => Promise<void>;
+  created() {
+    this.fetchCharacters();
+  }
+}
 </script>
 
 <style lang="scss">
@@ -28,22 +34,5 @@ export default class App extends Vue {}
   margin: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  font-weight: 500; // medium
-  // font-size: 16px;
-  // font-weight: 400 //regular
 }
-
-// .nav {
-//   position: relative;
-//   height: 25%;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
 </style>

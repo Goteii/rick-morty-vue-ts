@@ -28,8 +28,8 @@
       <li>{{ species }}</li>
       <li>{{ lastEpisode }}</li>
       <li>
-        <button class="favorite-btn" @click="addFavorite(character)">
-          <img src="../assets/blue-star.png" />
+        <button class="favorite-btn" @click="deleteFavorite(characterID)">
+          <img src="../assets/white-star.png" />
         </button>
       </li>
     </ul>
@@ -38,13 +38,12 @@
 </template>
 
 <script lang="ts">
-import { FavoritesI } from "@/models/models";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { Mutation } from "vuex-class";
 @Component({})
 export default class Character extends Vue {
-  @Mutation("favorites/addFavorite") addFavorite!: (
-    character: FavoritesI
+  @Mutation("favorites/deleteFavorite") deleteFavorite!: (
+    characterID: string
   ) => void;
   @Prop({ required: true, type: String }) readonly photo!: string;
   @Prop({ required: true, type: String }) readonly characterID!: string;
@@ -52,7 +51,6 @@ export default class Character extends Vue {
   @Prop({ required: true, type: String }) readonly gender!: string;
   @Prop({ required: true, type: String }) readonly species!: string;
   @Prop({ required: true, type: String }) readonly lastEpisode!: string;
-  @Prop({ required: true, type: Object }) readonly character!: FavoritesI;
 }
 </script>
 
@@ -79,6 +77,7 @@ export default class Character extends Vue {
     .favorite-btn {
       border-radius: 5px;
       border-color: #11b0c8;
+      background-color: #11b0c8;
       border: 2px solid #11b0cb;
       cursor: pointer;
 

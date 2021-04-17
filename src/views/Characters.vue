@@ -7,8 +7,14 @@
     <div class="error" v-if="error">
       Unexpected error, please try again later!
     </div>
+    <input
+      class="form-control"
+      type="text"
+      v-model="searchPhrase"
+      placeholder="Search"
+    />
     <Character
-      v-for="character in charactersApi"
+      v-for="character in resultSearching"
       :key="character.id"
       :photo="character.image"
       :characterID="character.id"
@@ -16,6 +22,7 @@
       :gender="character.gender"
       :species="character.species"
       :lastEpisode="character.episode[character.episode.length - 1].episode"
+      :character="character"
     />
   </div>
 </template>
@@ -23,25 +30,34 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Character from "./Character.vue";
-import axios from "axios";
+import { CharactersApiI } from "@/models/models";
+import { Getter } from "vuex-class";
 @Component({
   components: {
     Character,
   },
 })
 export default class Characters extends Vue {
-  headers = [
-    "Photo",
-    "Character ID",
-    "Name",
-    "Gender",
-    "Species",
-    "Last Episode",
-    "Add To Favorites",
-  ];
-  charactersApi = [];
-  loading = true;
-  error = false;
+  @Getter("characters/getCharacters") characters!: CharactersApiI[];
+  @Getter("characters/getLoading") loading!: boolean;
+  @Getter("characters/getError") error!: boolean;
+  // @Mutation("characters/resultSearching") resultSearching!: () => CharactersApiI[];
+  // @Getter("characters/getSearchPhrase") searchPhrase!: string;
+  @Getter("characters/getHeaders") headers!: string[];
+  // @Action("characters/setResultSearching") setResultSearching!: (newValue: string) => void;
+  searchPhrase = '';
+  get resultSearching(): CharactersApiI[] {
+    // return this.searchPhrase;
+    return this.characters.filter((character) => {
+      return character.name
+        .toLowerCase()
+        .match(this.searchPhrase.toLowerCase());
+    });
+  }
+  // set resultSearching(newValue: string) {
+  //   this.setResultSearching(newValue);
+  // }
+
   // currentPage = 1;
   // charactersOnPage = 8;
   // indexOfLastCharacter = this.currentPage * this.charactersOnPage;
@@ -50,39 +66,6 @@ export default class Characters extends Vue {
   // currentPageNumber(pageNumber: number): void {
   //   this.currentPage = pageNumber;
   // }
-  async created(): Promise<void> {
-    try {
-      let result = await axios({
-        method: "POST",
-        url: "https://rickandmortyapi.com/graphql",
-        data: {
-          query: `
-          {
-            characters {
-            results {
-              name
-              id
-              gender
-              species
-              image
-              episode {
-                episode
-              }
-              }
-            }
-          }
-          `,
-        },
-      });
-      this.charactersApi = result.data.data.characters.results;
-    } catch (e) {
-      console.error(e);
-      this.error = true;
-      this.loading = false;
-    } finally {
-      this.loading = false;
-    }
-  }
 }
 </script>
 
@@ -98,6 +81,7 @@ export default class Characters extends Vue {
     color: #a9b1bd;
     padding: 1em;
     width: 80%;
+    font-weight: 500;
   }
 
   .loading {
@@ -109,7 +93,7 @@ export default class Characters extends Vue {
     font-style: italic;
   }
   .error {
-      background-color: #fcfcfc;
+    background-color: #fcfcfc;
     display: flex;
     padding: 2em;
     justify-content: center;
