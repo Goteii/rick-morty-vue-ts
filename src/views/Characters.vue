@@ -10,7 +10,6 @@
     <input
       class="form-control"
       type="text"
-      v-model="searchPhrase"
       placeholder="Search"
     />
     <Character
@@ -30,7 +29,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Character from "./Character.vue";
-import { CharactersApiI } from "@/models/models";
+import { CharactersApiI } from "../models/models";
 import { Getter } from "vuex-class";
 @Component({
   components: {
@@ -41,19 +40,31 @@ export default class Characters extends Vue {
   @Getter("characters/getCharacters") characters!: CharactersApiI[];
   @Getter("characters/getLoading") loading!: boolean;
   @Getter("characters/getError") error!: boolean;
-  // @Mutation("characters/resultSearching") resultSearching!: () => CharactersApiI[];
-  // @Getter("characters/getSearchPhrase") searchPhrase!: string;
+  @Getter("characters/getSearchPhrase") searchPhrase!: string;
   @Getter("characters/getHeaders") headers!: string[];
-  // @Action("characters/setResultSearching") setResultSearching!: (newValue: string) => void;
-  searchPhrase = '';
-  get resultSearching(): CharactersApiI[] {
-    // return this.searchPhrase;
+  get resultSearching(): any {
     return this.characters.filter((character) => {
       return character.name
         .toLowerCase()
         .match(this.searchPhrase.toLowerCase());
     });
   }
+  set resultSearching(newValue: any) {
+    this.searchPhrase = newValue.target.value.toLowerCase();
+  }
+    // this.characters.filter((character) => {
+    //   return character.name
+    //     .toLowerCase()
+    //     .match(this.searchPhrase.toLowerCase());
+    // });
+  // @Mutation("characters/resultSearching") resultSearching!: () => CharactersApiI[];
+  // @Action("characters/setResultSearching") setResultSearching!: (newValue: string) => void;
+  // @Action("characters/setResultSearching") setResultSearching!: (newValue: string) => void;
+  // searchPhrase = '';
+  // set resultSearching(newValue: string) {
+  //   console.log(this.searchPhrase);
+  //   this.setResultSearching(newValue);
+  // }
   // set resultSearching(newValue: string) {
   //   this.setResultSearching(newValue);
   // }

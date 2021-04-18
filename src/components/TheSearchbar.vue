@@ -8,6 +8,24 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { Getter } from "vuex-class";
+Component({});
+export default class TheSearchbar extends Vue {
+  @Getter("characters/getSearchPhrase") searchPhrase!: string;
+  // searchPhrase = "he";
+  // get resultSearching(): CharactersApiI[] {
+  //   // return this.searchPhrase;
+  //   return this.characters.filter((character) => {
+  //     return character.name
+  //       .toLowerCase()
+  //       .match(this.searchPhrase.toLowerCase());
+  //   });
+  // }
+}
+</script>
+
 <style lang="scss" scoped>
 .searchbar {
   position: relative;

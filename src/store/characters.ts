@@ -54,7 +54,8 @@ class Characters extends VuexModule {
   }
 
   @Mutation
-   resultSearching(): CharactersApiI[] {
+   resultSearching(newValue: string): CharactersApiI[] {
+     this.searchPhrase = newValue;
     return this.characters.filter((character) => {
       return character.name
         .toLowerCase()
