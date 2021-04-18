@@ -7,21 +7,28 @@
     <div class="error" v-if="error">
       Unexpected error, please try again later!
     </div>
-    <input
-      class="form-control"
-      type="text"
-      placeholder="Search"
-    />
-    <Character
-      v-for="character in resultSearching"
-      :key="character.id"
-      :photo="character.image"
-      :characterID="character.id"
-      :name="character.name"
-      :gender="character.gender"
-      :species="character.species"
-      :lastEpisode="character.episode[character.episode.length - 1].episode"
-      :character="character"
+    <!-- dummy input which gets data from characters.ts module and filters characters if v-for="character in resultSearching"--->
+    <!-- <input class="form-control" type="text" placeholder="Search" :value="searchPhrase"/> -->
+    <template v-if="characters.length > 0">
+      <Character
+        v-for="character in paginate"
+        :key="character.id"
+        :photo="character.image"
+        :characterID="character.id"
+        :name="character.name"
+        :gender="character.gender"
+        :species="character.species"
+        :lastEpisode="character.episode[character.episode.length - 1].episode"
+        :character="character"
+      />
+    </template>
+    <Pagination
+      :currentPage="currentPage"
+      :itemsPerPage="itemsPerPage"
+      :resultCount="resultCount"
+      :totalPages="totalPages"
+      @setPage="setPage"
+      @changePage="changePage"
     />
   </div>
 </template>
@@ -30,10 +37,12 @@
 import { Vue, Component } from "vue-property-decorator";
 import Character from "./Character.vue";
 import { CharactersApiI } from "../models/models";
+import Pagination from "../components/Pagination.vue";
 import { Getter } from "vuex-class";
 @Component({
   components: {
     Character,
+    Pagination,
   },
 })
 export default class Characters extends Vue {
@@ -42,41 +51,42 @@ export default class Characters extends Vue {
   @Getter("characters/getError") error!: boolean;
   @Getter("characters/getSearchPhrase") searchPhrase!: string;
   @Getter("characters/getHeaders") headers!: string[];
-  get resultSearching(): any {
-    return this.characters.filter((character) => {
-      return character.name
-        .toLowerCase()
-        .match(this.searchPhrase.toLowerCase());
-    });
+  currentPage = 1;
+  itemsPerPage = 5;
+  resultCount = 0;
+  // get resultSearching(): CharactersApiI[] {
+  //   return this.characters.filter((character) => {
+  //     return character.name
+  //       .toLowerCase()
+  //       .match(this.searchPhrase.toLowerCase());
+  //   });
+  // }
+  get totalPages(): number {
+    return Math.ceil(this.resultCount / this.itemsPerPage);
   }
-  set resultSearching(newValue: any) {
-    this.searchPhrase = newValue.target.value.toLowerCase();
+  get paginate(): CharactersApiI[] {
+    this.resultCount = this.characters.length;
+    if (this.currentPage >= this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
+    const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
+    return this.characters.slice(index, index + this.itemsPerPage);
   }
-    // this.characters.filter((character) => {
-    //   return character.name
-    //     .toLowerCase()
-    //     .match(this.searchPhrase.toLowerCase());
-    // });
-  // @Mutation("characters/resultSearching") resultSearching!: () => CharactersApiI[];
-  // @Action("characters/setResultSearching") setResultSearching!: (newValue: string) => void;
-  // @Action("characters/setResultSearching") setResultSearching!: (newValue: string) => void;
-  // searchPhrase = '';
-  // set resultSearching(newValue: string) {
-  //   console.log(this.searchPhrase);
-  //   this.setResultSearching(newValue);
-  // }
-  // set resultSearching(newValue: string) {
-  //   this.setResultSearching(newValue);
-  // }
-
-  // currentPage = 1;
-  // charactersOnPage = 8;
-  // indexOfLastCharacter = this.currentPage * this.charactersOnPage;
-  // indexOfFirstCharacter = this.indexOfLastCharacter - this.charactersOnPage;
-  // currentCharacters = [];
-  // currentPageNumber(pageNumber: number): void {
-  //   this.currentPage = pageNumber;
-  // }
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+  changePage(value: string): void {
+    if (
+      value === "next" &&
+      this.currentPage < this.resultCount / this.itemsPerPage
+    ) {
+      this.currentPage = this.currentPage + 1;
+    } else if (value === "previous" && this.currentPage > 1) {
+      this.currentPage = this.currentPage - 1;
+    } else {
+      return;
+    }
+  }
 }
 </script>
 

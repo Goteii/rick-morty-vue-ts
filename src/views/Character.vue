@@ -66,9 +66,10 @@ export default class Character extends Vue {
     justify-content: space-around;
     list-style-type: none;
     color: #a9b1bd;
-    padding: 1em;
+    padding-bottom: 1em;
     align-items: center;
     width: 75%;
+    height: 12vh;
 
     li {
       flex: 1;
@@ -81,6 +82,7 @@ export default class Character extends Vue {
       border-color: #11b0c8;
       border: 2px solid #11b0cb;
       cursor: pointer;
+      background-color: #ffffff;
 
       img {
         display: flex;
@@ -100,7 +102,7 @@ export default class Character extends Vue {
       display: flex;
       width: 75%;
       font-size: 16px;
-      padding-top: 2.5em;
+      padding-top: 1em;
       li {
         justify-content: center;
       }
@@ -139,6 +141,7 @@ export default class Character extends Vue {
       width: 100%;
       font-size: 12px;
       padding-top: 1em;
+
       li {
         justify-content: space-around;
       }
@@ -156,13 +159,13 @@ export default class Character extends Vue {
     .character-values {
       display: flex;
       width: 100%;
-      font-size: 8px;
+      font-size: 9px;
       padding-top: 1em;
       li {
         justify-content: stretch;
       }
       .character-img {
-        width: 60%;
+        width: 65%;
       }
       .favorite-btn {
         padding: 0px;

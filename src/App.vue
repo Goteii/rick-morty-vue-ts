@@ -21,7 +21,7 @@ import { Action } from "vuex-class";
 })
 export default class App extends Vue {
   @Action("characters/fetchCharacters") fetchCharacters!: () => Promise<void>;
-  created() {
+  created(): void {
     this.fetchCharacters();
   }
 }
