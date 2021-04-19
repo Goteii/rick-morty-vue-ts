@@ -19,14 +19,12 @@ class Favorites extends VuexModule {
   deleteFavorite(id: string): void {
     this.favorites = this.favorites.filter((x) => x.id != id);
     store.dispatch("loadFavoritesToLocalStorage");
-    console.log(this.favorites);
   }
   @Mutation
   addFavorite(character: CharactersApiI): void {
     this.favorites.push(character);
     this.favorites = [...new Set(this.favorites)];
     store.dispatch("loadFavoritesToLocalStorage");
-    console.log(this.favorites);
   }
 
   @Mutation
@@ -49,7 +47,7 @@ class Favorites extends VuexModule {
       localStorage.getItem("favorites") || ""
     );
     this.context.commit("loadFavorites", favorites);
-    this.context.commit('loadingOff');
+    this.context.commit("loadingOff");
   }
 }
 

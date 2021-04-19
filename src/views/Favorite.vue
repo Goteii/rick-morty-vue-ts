@@ -67,6 +67,7 @@ export default class Character extends Vue {
     padding: 1em;
     align-items: center;
     width: 75%;
+    height: 12vh;
 
     li {
       flex: 1;
@@ -99,7 +100,7 @@ export default class Character extends Vue {
       display: flex;
       width: 75%;
       font-size: 16px;
-      padding-top: 2.5em;
+      padding-top: 1em;
       li {
         justify-content: center;
       }

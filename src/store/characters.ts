@@ -7,7 +7,8 @@ class Characters extends VuexModule {
   characters: CharactersApiI[] = [];
   loading = true;
   error = false;
-  searchPhrase = '';
+  // works only in characters.vue with dummy input
+  searchPhrase = "";
   headers = [
     "Photo",
     "Character ID",
@@ -31,7 +32,7 @@ class Characters extends VuexModule {
   }
 
   get getSearchPhrase(): string {
-    return this.searchPhrase
+    return this.searchPhrase;
   }
 
   get getHeaders(): string[] {
@@ -54,8 +55,8 @@ class Characters extends VuexModule {
   }
 
   @Mutation
-   resultSearching(newValue: string): CharactersApiI[] {
-     this.searchPhrase = newValue;
+  resultSearching(newValue: string): CharactersApiI[] {
+    this.searchPhrase = newValue;
     return this.characters.filter((character) => {
       return character.name
         .toLowerCase()
@@ -63,9 +64,9 @@ class Characters extends VuexModule {
     });
   }
 
-  @Action 
+  @Action
   setResultSearching(newValue: string): void {
-    this.context.commit('resultSearching', newValue)
+    this.context.commit("resultSearching", newValue);
   }
 
   @Action
