@@ -10,26 +10,43 @@
         <img
           v-if="gender === 'Male'"
           src="../assets/male.png"
-          alt="${gender}icon"
+          :alt="gender + '_icon'"
         />
         <img
           v-else-if="gender === 'Female'"
           src="../assets/female.png"
-          alt="${gender}icon"
+          :alt="gender + '_icon'"
         />
         <img
           v-else-if="gender === 'unknown'"
           src="../assets/unknown.png"
-          alt="${gender}icon"
+          :alt="gender + '_icon'"
         />
-        <img v-else src="../assets/genderless.png" alt="${gender}icon" />
+        <img v-else src="../assets/genderless.png" :alt="gender + '_icon'" />
         {{ gender }}
       </li>
       <li>{{ species }}</li>
       <li>{{ lastEpisode }}</li>
       <li>
-        <button class="favorite-btn" @click="addFavorite(character)">
+        <button
+          v-if="!isFavorite"
+          class="favorite-btn"
+          @click="
+            addFavorite(character);
+            toggle();
+          "
+        >
           <img src="../assets/blue-star.png" />
+        </button>
+        <button
+          v-else
+          class="favorite"
+          @click="
+            deleteFavorite(characterID);
+            toggle();
+          "
+        >
+          <img src="../assets/white-star.png" />
         </button>
       </li>
     </ul>
@@ -38,13 +55,16 @@
 </template>
 
 <script lang="ts">
-import { FavoritesI } from "@/models/models";
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { FavoritesI } from "../models/models";
 import { Mutation } from "vuex-class";
 @Component({})
 export default class Character extends Vue {
   @Mutation("favorites/addFavorite") addFavorite!: (
     character: FavoritesI
+  ) => void;
+  @Mutation("favorites/deleteFavorite") deleteFavorite!: (
+    characterID: string
   ) => void;
   @Prop({ required: true, type: String }) readonly photo!: string;
   @Prop({ required: true, type: String }) readonly characterID!: string;
@@ -53,6 +73,11 @@ export default class Character extends Vue {
   @Prop({ required: true, type: String }) readonly species!: string;
   @Prop({ required: true, type: String }) readonly lastEpisode!: string;
   @Prop({ required: true, type: Object }) readonly character!: FavoritesI;
+  isFavorite = false;
+  toggle(): void {
+    this.isFavorite = !this.isFavorite;
+    console.log(this.isFavorite);
+  }
 }
 </script>
 
@@ -68,8 +93,6 @@ export default class Character extends Vue {
     color: #a9b1bd;
     padding-bottom: 1em;
     align-items: center;
-    width: 75%;
-    height: 12vh;
 
     li {
       flex: 1;
@@ -78,12 +101,23 @@ export default class Character extends Vue {
     }
 
     .favorite-btn {
-      border-radius: 5px;
       border-color: #11b0c8;
+      border-radius: 5px;
       border: 2px solid #11b0cb;
       cursor: pointer;
       background-color: #ffffff;
 
+      img {
+        display: flex;
+      }
+    }
+
+    .favorite {
+      border-radius: 5px;
+      border-color: #11b0c8;
+      background-color: #11b0c8;
+      border: 2px solid #11b0cb;
+      cursor: pointer;
       img {
         display: flex;
       }
@@ -96,20 +130,81 @@ export default class Character extends Vue {
   }
 }
 
-@media (min-width: 1025px) {
+@media (max-width: 5200px) {
   .character {
     .character-values {
-      display: flex;
-      width: 75%;
-      font-size: 16px;
+      width: 87.5%;
+      font-size: 30px;
       padding-top: 1em;
+      height: 17.5vh;
       li {
         justify-content: center;
       }
       .character-img {
+        width: 25%;
+      }
+      .favorite-btn,
+      .favorite {
+        padding: 12px;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+@media (max-width: 4200px) {
+  .character {
+    .character-values {
+      width: 85%;
+      font-size: 25px;
+      height: 16vh;
+
+      .character-img {
+        width: 27.5%;
+      }
+    }
+  }
+}
+@media (max-width: 3500px) {
+  .character {
+    .character-values {
+      font-size: 20px;
+      height: 15vh;
+      width: 82.5%;
+
+      .character-img {
+        width: 30%;
+      }
+    }
+  }
+}
+@media (max-width: 2560px) {
+  .character {
+    .character-values {
+      font-size: 18px;
+      width: 77.5%;
+
+      .character-img {
+        width: 30%;
+      }
+      .favorite-btn,
+      .favorite {
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+@media (max-width: 1920px) {
+  .character {
+    .character-values {
+      font-size: 16px;
+      height: 12vh;
+
+      .character-img {
         width: 35%;
       }
-      .favorite-btn {
+      .favorite-btn,
+      .favorite {
         padding: 5px;
       }
     }
@@ -118,13 +213,9 @@ export default class Character extends Vue {
 @media (max-width: 1024px) {
   .character {
     .character-values {
-      display: flex;
       width: 90%;
       font-size: 16px;
-      padding-top: 1em;
-      li {
-        justify-content: center;
-      }
+
       .character-img {
         width: 50%;
       }
@@ -137,19 +228,10 @@ export default class Character extends Vue {
 @media (max-width: 768px) {
   .character {
     .character-values {
-      display: flex;
       width: 100%;
       font-size: 12px;
-      padding-top: 1em;
-
       li {
         justify-content: space-around;
-      }
-      .character-img {
-        width: 50%;
-      }
-      .favorite-btn {
-        padding: 2px;
       }
     }
   }
@@ -157,17 +239,15 @@ export default class Character extends Vue {
 @media (max-width: 480px) {
   .character {
     .character-values {
-      display: flex;
-      width: 100%;
       font-size: 9px;
-      padding-top: 1em;
       li {
         justify-content: stretch;
       }
       .character-img {
         width: 65%;
       }
-      .favorite-btn {
+      .favorite-btn,
+      .favorite {
         padding: 0px;
       }
     }

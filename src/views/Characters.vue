@@ -8,7 +8,13 @@
       Unexpected error, please try again later!
     </div>
     <!-- dummy input which gets data from characters.ts module and filters characters if v-for="character in resultSearching"--->
-    <!-- <input class="form-control" type="text" placeholder="Search" :value="searchPhrase"/> -->
+    <!-- <input
+      class="form-control"
+      type="text"
+      placeholder="Search"
+      :value="searchPhrase"
+      @input="handleInput"
+    /> -->
     <template v-if="characters.length > 0">
       <Character
         v-for="character in paginate"
@@ -38,7 +44,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Character from "./Character.vue";
 import { CharactersApiI } from "../models/models";
 import Pagination from "../components/Pagination.vue";
-import { Getter } from "vuex-class";
+import { Getter, Mutation } from "vuex-class";
 @Component({
   components: {
     Character,
@@ -51,16 +57,20 @@ export default class Characters extends Vue {
   @Getter("characters/getError") error!: boolean;
   @Getter("characters/getSearchPhrase") searchPhrase!: string;
   @Getter("characters/getHeaders") headers!: string[];
+  @Mutation("characters/updateMessage") updateMessage!: (e: {
+    target: { value: string };
+  }) => void;
   currentPage = 1;
   itemsPerPage = 5;
   resultCount = 0;
-  // get resultSearching(): CharactersApiI[] {
-  //   return this.characters.filter((character) => {
-  //     return character.name
-  //       .toLowerCase()
-  //       .match(this.searchPhrase.toLowerCase());
-  //   });
-  // }
+  get resultSearching(): CharactersApiI[] {
+    return this.characters.filter((character) => {
+      return character.name
+        .toLowerCase()
+        .match(this.searchPhrase.toLowerCase());
+      // .match(this.$store.state.searchbar.searchPhrase.toLowerCase())
+    });
+  }
   get totalPages(): number {
     return Math.ceil(this.resultCount / this.itemsPerPage);
   }
@@ -71,6 +81,9 @@ export default class Characters extends Vue {
     }
     const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
     return this.characters.slice(index, index + this.itemsPerPage);
+  }
+  handleInput(e: { target: { value: string } }): void {
+    this.updateMessage(e);
   }
   setPage(pageNumber: number): void {
     this.currentPage = pageNumber;
@@ -97,11 +110,9 @@ export default class Characters extends Vue {
 
   .characters-headers {
     display: flex;
-    justify-content: space-around;
     list-style-type: none;
     color: #a9b1bd;
     padding: 1em;
-    width: 80%;
     font-weight: 500;
   }
 
@@ -124,11 +135,35 @@ export default class Characters extends Vue {
   }
 }
 
-@media (min-width: 1025px) {
+@media (max-width: 5200px) {
+   .characters {
+    .characters-headers {
+      width: 90%;
+      justify-content: space-around;
+      font-size: 30px;
+    }
+  }
+}
+@media (max-width: 4200px) {
+   .characters {
+    .characters-headers {
+      width: 87.5%;
+      font-size: 25px;
+    }
+  }
+}
+@media (max-width: 3500px) {
+   .characters {
+    .characters-headers {
+      width: 85%;
+      font-size: 20px;
+    }
+  }
+}
+@media (max-width: 2560px) {
   .characters {
     .characters-headers {
       width: 80%;
-      justify-content: space-around;
       font-size: 16px;
     }
   }
@@ -137,7 +172,6 @@ export default class Characters extends Vue {
   .characters {
     .characters-headers {
       width: 90%;
-      justify-content: space-around;
       font-size: 12px;
     }
   }
@@ -146,15 +180,12 @@ export default class Characters extends Vue {
   .characters {
     .characters-headers {
       width: 100%;
-      justify-content: space-around;
-      font-size: 12px;
     }
   }
 }
 @media (max-width: 480px) {
   .characters {
     .characters-headers {
-      width: 100%;
       justify-content: space-between;
       font-size: 8px;
     }

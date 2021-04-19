@@ -124,11 +124,44 @@ export default class Characters extends Vue {
   }
 }
 
-@media (min-width: 1025px) {
+@media (max-width: 5200px) {
+   .characters {
+    .characters-headers {
+      width: 90%;
+       justify-content: space-around;
+      font-size: 30px;
+    }
+  }
+}
+@media (max-width: 4200px) {
+   .characters {
+    .characters-headers {
+      width: 87.5%;
+      font-size: 25px;
+    }
+  }
+}
+@media (max-width: 3500px) {
+   .characters {
+    .characters-headers {
+      width: 85%;
+      font-size: 20px;
+    }
+  }
+}
+@media (max-width: 2560px) {
   .characters {
     .characters-headers {
       width: 80%;
-      justify-content: space-around;
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 1920px) {
+  .characters {
+    .characters-headers {
+      width: 90%;
       font-size: 16px;
     }
   }
@@ -136,8 +169,6 @@ export default class Characters extends Vue {
 @media (max-width: 1024px) {
   .characters {
     .characters-headers {
-      width: 90%;
-      justify-content: space-around;
       font-size: 12px;
     }
   }
@@ -146,15 +177,12 @@ export default class Characters extends Vue {
   .characters {
     .characters-headers {
       width: 100%;
-      justify-content: space-around;
-      font-size: 12px;
     }
   }
 }
 @media (max-width: 480px) {
   .characters {
     .characters-headers {
-      width: 100%;
       justify-content: space-between;
       font-size: 8px;
     }

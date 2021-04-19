@@ -66,8 +66,6 @@ export default class Character extends Vue {
     color: #a9b1bd;
     padding: 1em;
     align-items: center;
-    width: 75%;
-    height: 12vh;
 
     li {
       flex: 1;
@@ -76,7 +74,6 @@ export default class Character extends Vue {
     }
 
     .favorite-btn {
-      border-radius: 5px;
       border-color: #11b0c8;
       background-color: #11b0c8;
       border: 2px solid #11b0cb;
@@ -94,16 +91,73 @@ export default class Character extends Vue {
   }
 }
 
-@media (min-width: 1025px) {
+@media (max-width: 5200px) {
   .character {
     .character-values {
-      display: flex;
-      width: 75%;
-      font-size: 16px;
+      width: 87.5%;
+      font-size: 30px;
       padding-top: 1em;
+      height: 17.5vh;
       li {
         justify-content: center;
       }
+      .character-img {
+        width: 25%;
+      }
+      .favorite-btn {
+        padding: 12px;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+@media (max-width: 4200px) {
+  .character {
+    .character-values {
+      width: 85%;
+      font-size: 25px;
+      height: 16vh;
+
+      .character-img {
+        width: 27.5%;
+      }
+    }
+  }
+}
+@media (max-width: 3500px) {
+  .character {
+    .character-values {
+      font-size: 20px;
+      height: 15vh;
+      width: 82.5%;
+
+      .character-img {
+        width: 30%;
+      }
+    }
+  }
+}
+@media (max-width: 2560px) {
+  .character {
+    .character-values {
+      font-size: 18px;
+      width: 77.5%;
+
+      .favorite-btn {
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+@media (max-width: 1920px) {
+  .character {
+    .character-values {
+      display: flex;
+      width: 90%;
+      font-size: 16px;
+      height: 12vh;
+
       .character-img {
         width: 35%;
       }
@@ -116,13 +170,6 @@ export default class Character extends Vue {
 @media (max-width: 1024px) {
   .character {
     .character-values {
-      display: flex;
-      width: 90%;
-      font-size: 16px;
-      padding-top: 1em;
-      li {
-        justify-content: center;
-      }
       .character-img {
         width: 50%;
       }
@@ -135,18 +182,10 @@ export default class Character extends Vue {
 @media (max-width: 768px) {
   .character {
     .character-values {
-      display: flex;
       width: 100%;
       font-size: 12px;
-      padding-top: 1em;
       li {
         justify-content: space-around;
-      }
-      .character-img {
-        width: 50%;
-      }
-      .favorite-btn {
-        padding: 2px;
       }
     }
   }
@@ -154,10 +193,7 @@ export default class Character extends Vue {
 @media (max-width: 480px) {
   .character {
     .character-values {
-      display: flex;
-      width: 100%;
       font-size: 8px;
-      padding-top: 1em;
       li {
         justify-content: stretch;
       }

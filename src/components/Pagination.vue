@@ -51,7 +51,7 @@ export default class Pagination extends Vue {
 
     .pages-btn {
       background-color: red;
-      padding: 15px;
+      padding: 12.5px;
       list-style-type: none;
       margin-left: 10px;
       border: 1px solid #a9b1bd;
@@ -61,6 +61,10 @@ export default class Pagination extends Vue {
       cursor: pointer;
       display: flex;
       align-items: center;
+
+      span {
+        text-align: center;
+      }
     }
 
     .pages-btn:focus {
@@ -78,6 +82,7 @@ export default class Pagination extends Vue {
       cursor: pointer;
       display: flex;
       align-items: center;
+      text-align: center;
 
       span {
         text-align: center;
@@ -91,30 +96,79 @@ export default class Pagination extends Vue {
   }
 }
 
-@media (min-width: 1025px) {
-  .characters {
-    .characters-headers {
-      width: 80%;
-      justify-content: space-around;
-      font-size: 16px;
+@media (max-width: 5200px) {
+  .pages-container {
+    bottom: 60px;
+    .pages {
+      .page {
+        height: 3vh;
+        span {
+          font-size: 30px;
+        }
+      }
+      .pages-btn {
+        height: 3vh;
+        span {
+          font-size: 30px;
+        }
+      }
     }
   }
 }
-@media (max-width: 1024px) {
-  .characters {
-    .characters-headers {
-      width: 90%;
-      justify-content: space-around;
-      font-size: 12px;
+@media (max-width: 4200px) {
+  .pages-container {
+    bottom: 60px;
+    .pages {
+      .page {
+        height: 3vh;
+        span {
+          font-size: 25px;
+        }
+      }
+      .pages-btn {
+        height: 3vh;
+        span {
+          font-size: 25px;
+        }
+      }
     }
   }
 }
-@media (max-width: 768px) {
-  .characters {
-    .characters-headers {
-      width: 100%;
-      justify-content: space-around;
-      font-size: 12px;
+@media (max-width: 3500px) {
+  .pages-container {
+    bottom: 90px;
+    .pages {
+      .page {
+        height: 4vh;
+        span {
+          font-size: 20px;
+        }
+      }
+      .pages-btn {
+        height: 4vh;
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 2560px) {
+  .pages-container {
+    bottom: 40px;
+    .pages {
+      .page {
+        height: 4vh;
+        span {
+          font-size: 16px;
+        }
+      }
+      .pages-btn {
+        height: 4vh;
+        span {
+          font-size: 16px;
+        }
+      }
     }
   }
 }
@@ -122,11 +176,10 @@ export default class Pagination extends Vue {
   .pages-container {
     .pages {
       .page {
-        text-align: center;
-        height: 3.5vh;
+        height: 3vh;
       }
       .pages-btn {
-        height: 3.5vh;
+        height: 3vh;
       }
     }
   }

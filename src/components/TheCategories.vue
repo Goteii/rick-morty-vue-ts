@@ -32,25 +32,49 @@
     }
   }
 }
-
-@media (min-width: 1025px) {
-  .categories {
-    width: 20%;
+@media (max-width: 5200px) {
+  .categories-container {
+    .categories {
+      width: 15%;
+      font-size: 30px;
+    }
+  }
+}
+@media (max-width: 3500px) {
+  .categories-container {
+    .categories {
+      font-size: 20px;
+    }
+  }
+}
+@media (max-width: 2500px) {
+  .categories-container {
+    .categories {
+      width: 20%;
+      font-size: 16px;
+    }
   }
 }
 @media (max-width: 1024px) {
-  .categories {
-    width: 30%;
+  .categories-container {
+    .categories {
+      width: 30%;
+      font-size: 12px;
+    }
   }
 }
 @media (max-width: 768px) {
-  .categories {
-    width: 50%;
+  .categories-container {
+    .categories {
+      width: 50%;
+    }
   }
 }
 @media (max-width: 480px) {
-  .categories {
-    width: 100%;
+  .categories-container {
+    .categories {
+      width: 100%;
+    }
   }
 }
 </style>

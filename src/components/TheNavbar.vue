@@ -19,14 +19,17 @@ export default class TheNavbar extends Vue {}
 <style lang="scss" scoped>
 .navbar {
   position: relative;
-  top: 0;
   width: 100%;
   padding: 30px;
   display: flex;
-  align-content: center;
   padding-left: 5%;
 }
-@media (min-width: 1025px) {
+@media (max-width: 3000px) {
+  .logo-img {
+    width: 11%;
+  }
+}
+@media (max-width: 2000px) {
   .logo-img {
     width: 12.5%;
   }
