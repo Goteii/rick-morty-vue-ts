@@ -3,9 +3,9 @@
     <ul class="favorites__headers">
       <li v-for="header in headers" :key="header.id">{{ header }}</li>
     </ul>
-    <div class="favorites__loading" v-if="loading">
+    <!-- <div class="favorites__loading" v-if="loading">
       You don't have any favorite character :(
-    </div>
+    </div> -->
     <template v-if="favorites.length > 0">
       <Favorite
         v-for="character in paginate"
@@ -100,9 +100,9 @@ export default class Characters extends Vue {
     @include headers;
   }
 
-  .favorites__loading {
-    @include loading;
-  }
+  // .favorites__loading {
+  //   @include loading;
+  // }
 }
 
 @media (max-width: 5200px) {
