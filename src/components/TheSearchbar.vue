@@ -1,7 +1,7 @@
 <template>
   <div class="searchbar">
     <input
-      class="searchbar--input"
+      class="searchbar__input"
       type="search"
       placeholder="Start typing to search..."
     />
@@ -26,6 +26,7 @@ export default class TheSearchbar extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/styles.scss";
 .searchbar {
   position: relative;
   width: 50%;
@@ -34,27 +35,26 @@ export default class TheSearchbar extends Vue {
   align-items: center;
 
   ::placeholder {
-    color: #a9b1bd;
+    @include font-bold;
   }
 
-  .searchbar--input {
+  .searchbar__input {
     position: relative;
     max-height: 100%;
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid #a9b1bd;
+    border: 1px solid $color-2;
     background: url("../assets/search-icon.png") no-repeat scroll 95% 50%;
     padding-left: 2.5%;
-    font-weight: 500;
   }
 }
 
 @media (max-width: 5200px) {
   .searchbar {
     ::placeholder {
-      font-size: 30px;
+      font-size: $font-retina-large;
     }
-    .searchbar--input {
+    .searchbar__input {
       width: 55%;
       padding: 27.5px;
     }
@@ -63,7 +63,7 @@ export default class TheSearchbar extends Vue {
 @media (max-width: 4200px) {
   .searchbar {
     ::placeholder {
-      font-size: 25px;
+      font-size: $font-retina-regular;
     }
     .searchbar--input {
       padding: 25px;
@@ -73,9 +73,9 @@ export default class TheSearchbar extends Vue {
 @media (max-width: 3500px) {
   .searchbar {
     ::placeholder {
-      font-size: 20px;
+      font-size: $font-retina-small;
     }
-    .searchbar--input {
+    .searchbar__input {
       padding: 20px;
     }
   }
@@ -83,10 +83,10 @@ export default class TheSearchbar extends Vue {
 @media (max-width: 2560px) {
   .searchbar {
     ::placeholder {
-      font-size: 16px;
+      font-size: $font-desktop-regular;
     }
     padding-left: 2.5em;
-    .searchbar--input {
+    .searchbar__input {
       font-size: 16px;
       width: 50%;
       padding: 15px;
@@ -95,25 +95,25 @@ export default class TheSearchbar extends Vue {
 }
 @media (max-width: 1024px) {
   .searchbar {
-    .searchbar--input {
+    .searchbar__input {
       width: 65%;
-      font-size: 12px;
+      font-size: $font-desktop-small;
     }
   }
 }
 @media (max-width: 768px) {
   .searchbar {
-    .searchbar--input {
+    .searchbar__input {
       width: 70%;
-      font-size: 10px;
+      font-size: $font-tablet-regular;
     }
   }
 }
 @media (max-width: 480px) {
   .searchbar {
-    .searchbar--input {
+    .searchbar__input {
       width: 100%;
-      font-size: 8px;
+      font-size: $font-mobile-regular;
     }
   }
 }

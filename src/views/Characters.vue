@@ -1,10 +1,10 @@
 <template>
   <div class="characters">
-    <ul class="characters-headers">
+    <ul class="characters__headers">
       <li v-for="header in headers" :key="header.id">{{ header }}</li>
     </ul>
-    <div class="loading" v-if="loading">Loading, please wait..</div>
-    <div class="error" v-if="error">
+    <div class="characters__loading" v-if="loading">Loading, please wait..</div>
+    <div class="characters__error" v-if="error">
       Unexpected error, please try again later!
     </div>
     <!-- dummy input which gets data from characters.ts module and filters characters if v-for="character in resultSearching"--->
@@ -104,90 +104,77 @@ export default class Characters extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/styles.scss";
 .characters {
   position: relative;
-  background-color: #e5eaf4;
+  background-color: $bg-color-dark-opacity;
 
-  .characters-headers {
-    display: flex;
-    list-style-type: none;
-    color: #a9b1bd;
-    padding: 1em;
-    font-weight: 500;
+  .characters__headers {
+    @include headers;
   }
 
-  .loading {
-    background-color: #fcfcfc;
-    display: flex;
-    padding: 2em;
-    justify-content: center;
-    font-size: 20px;
-    font-style: italic;
+  .characters__loading {
+    @include loading;
   }
-  .error {
-    background-color: #fcfcfc;
-    display: flex;
-    padding: 2em;
-    justify-content: center;
-    font-size: 20px;
-    font-style: italic;
-    color: red;
+  .characters__error {
+    @include error;
   }
 }
 
 @media (max-width: 5200px) {
-   .characters {
-    .characters-headers {
+  .characters {
+    .characters__headers {
       width: 90%;
       justify-content: space-around;
-      font-size: 30px;
+      font-size: $font-retina-large;
     }
   }
 }
 @media (max-width: 4200px) {
-   .characters {
-    .characters-headers {
+  .characters {
+    .characters__headers {
       width: 87.5%;
-      font-size: 25px;
+      font-size: $font-retina-regular;
     }
   }
 }
 @media (max-width: 3500px) {
-   .characters {
-    .characters-headers {
+  .characters {
+    .characters__headers {
       width: 85%;
-      font-size: 20px;
+      font-size: $font-retina-small;
     }
   }
 }
 @media (max-width: 2560px) {
   .characters {
-    .characters-headers {
+    .characters__headers {
       width: 80%;
-      font-size: 16px;
+      font-size: $font-desktop-regular;
     }
   }
 }
 @media (max-width: 1024px) {
   .characters {
-    .characters-headers {
+    .characters__headers {
       width: 90%;
-      font-size: 12px;
+      font-size: $font-desktop-small;
     }
   }
 }
 @media (max-width: 768px) {
   .characters {
-    .characters-headers {
+    .characters__headers {
       width: 100%;
+      font-size: $font-tablet-regular;
     }
   }
 }
 @media (max-width: 480px) {
   .characters {
-    .characters-headers {
+    .characters__headers {
       justify-content: space-between;
-      font-size: 8px;
+      font-size: $font-mobile-regular;
     }
   }
 }

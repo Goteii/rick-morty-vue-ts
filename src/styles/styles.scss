@@ -1,0 +1,74 @@
+// background colors
+$bg-color-light: #FFFFFF;
+$bg-color-dark: #E5EAF4;
+$bg-color-dark-opacity: rgba(229, 234, 244, 0.25);
+
+// colors
+$color-1: #11b0c8;
+$color-2: #A9B1BD;
+
+// fonts colors + weight
+@mixin font-light {
+ color: $color-2;
+ font-weight: 400;
+}
+@mixin font-bold {
+    @include font-light;
+    font-weight: 500;
+}
+
+// fonts size
+$font-retina-large: 30px;
+$font-retina-regular: 25px;
+$font-retina-small: 20px;
+$font-desktop-regular: 16px;
+$font-desktop-small: 12px;
+$font-tablet-regular: 10px;
+$font-mobile-regular: 8px;
+
+
+//button style
+@mixin favorite-btn {
+    border-color: $color-1;
+    border: 2px solid $color-1;
+    cursor: pointer;
+    background-color: $bg-color-light;
+}
+
+@mixin unfavorite-btn {
+   @include favorite-btn;
+    background-color: $color-1;
+}
+
+
+//loading and error style
+@mixin loading {
+        background-color: $bg-color-light;
+        display: flex;
+        padding: 2em;
+        justify-content: center;
+        font-size: $font-retina-regular;
+        font-style: italic;
+}
+@mixin error {
+    @include loading;
+    color: red;
+}
+
+//headers 
+@mixin headers {
+    @include font-bold;
+    display: flex;
+    list-style-type: none;
+    padding: 1em;
+}
+
+// records
+@mixin records {
+    @include font-light;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 1em;
+    align-items: center;
+}

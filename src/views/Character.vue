@@ -1,8 +1,8 @@
 <template>
   <div class="character">
-    <ul class="character-values">
+    <ul class="character__list">
       <li>
-        <img :src="photo" alt="rick" class="character-img" />
+        <img :src="photo" :alt="name + '_icon'" class="character__img" />
       </li>
       <li>{{ characterID }}</li>
       <li>{{ name }}</li>
@@ -30,7 +30,7 @@
       <li>
         <button
           v-if="!isFavorite"
-          class="favorite-btn"
+          class="character__btn--add"
           @click="
             addFavorite(character);
             toggle();
@@ -40,7 +40,7 @@
         </button>
         <button
           v-else
-          class="favorite"
+          class="character__btn--delete"
           @click="
             deleteFavorite(characterID);
             toggle();
@@ -82,17 +82,13 @@ export default class Character extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/styles.scss";
 .character {
   position: relative;
-  background-color: #ffffff;
+  background-color: $bg-color-light;
 
-  .character-values {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
-    color: #a9b1bd;
-    padding-bottom: 1em;
-    align-items: center;
+  .character__list {
+    @include records;
 
     li {
       flex: 1;
@@ -100,24 +96,16 @@ export default class Character extends Vue {
       text-align: center;
     }
 
-    .favorite-btn {
-      border-color: #11b0c8;
-      border-radius: 5px;
-      border: 2px solid #11b0cb;
-      cursor: pointer;
-      background-color: #ffffff;
+    .character__btn--add {
+      @include favorite-btn;
 
       img {
         display: flex;
       }
     }
 
-    .favorite {
-      border-radius: 5px;
-      border-color: #11b0c8;
-      background-color: #11b0c8;
-      border: 2px solid #11b0cb;
-      cursor: pointer;
+    .character__btn--delete {
+      @include unfavorite-btn;
       img {
         display: flex;
       }
@@ -125,26 +113,26 @@ export default class Character extends Vue {
   }
   hr {
     height: 1px;
-    background-color: #e5eaf4;
+    background-color: $bg-color-dark;
     border: none;
   }
 }
 
 @media (max-width: 5200px) {
   .character {
-    .character-values {
+    .character__list {
       width: 87.5%;
-      font-size: 30px;
+      font-size: $font-retina-large;
       padding-top: 1em;
       height: 17.5vh;
       li {
         justify-content: center;
       }
-      .character-img {
+      .character__img {
         width: 25%;
       }
-      .favorite-btn,
-      .favorite {
+      .character__btn--add,
+      .character__btn--delete {
         padding: 12px;
         border-radius: 10px;
       }
@@ -153,12 +141,12 @@ export default class Character extends Vue {
 }
 @media (max-width: 4200px) {
   .character {
-    .character-values {
+    .character__list {
       width: 85%;
-      font-size: 25px;
+      font-size: $font-retina-regular;
       height: 16vh;
 
-      .character-img {
+      .character__img {
         width: 27.5%;
       }
     }
@@ -166,12 +154,12 @@ export default class Character extends Vue {
 }
 @media (max-width: 3500px) {
   .character {
-    .character-values {
-      font-size: 20px;
+    .character__list {
+      font-size: $font-retina-small;
       height: 15vh;
       width: 82.5%;
 
-      .character-img {
+      .character__img {
         width: 30%;
       }
     }
@@ -179,15 +167,15 @@ export default class Character extends Vue {
 }
 @media (max-width: 2560px) {
   .character {
-    .character-values {
+    .character__list {
       font-size: 18px;
       width: 77.5%;
 
-      .character-img {
+      .character__img {
         width: 30%;
       }
-      .favorite-btn,
-      .favorite {
+      .character__btn--add,
+      .character__btn--delete {
         padding: 8px;
         border-radius: 5px;
       }
@@ -196,15 +184,15 @@ export default class Character extends Vue {
 }
 @media (max-width: 1920px) {
   .character {
-    .character-values {
-      font-size: 16px;
+    .character__list {
+      font-size: $font-desktop-regular;
       height: 12vh;
 
-      .character-img {
-        width: 35%;
+      .character__img {
+        width: 32.5%;
       }
-      .favorite-btn,
-      .favorite {
+      .character__btn--add,
+      .character__btn--delete {
         padding: 5px;
       }
     }
@@ -212,14 +200,15 @@ export default class Character extends Vue {
 }
 @media (max-width: 1024px) {
   .character {
-    .character-values {
+    .character__list {
       width: 90%;
-      font-size: 16px;
+      font-size: $font-desktop-small;
 
-      .character-img {
+      .character__img {
         width: 50%;
       }
-      .favorite-btn {
+      .character__btn--add,
+      .character__btn--delete {
         padding: 2px;
       }
     }
@@ -227,9 +216,9 @@ export default class Character extends Vue {
 }
 @media (max-width: 768px) {
   .character {
-    .character-values {
+    .character__list {
       width: 100%;
-      font-size: 12px;
+      font-size: $font-tablet-regular;
       li {
         justify-content: space-around;
       }
@@ -238,16 +227,16 @@ export default class Character extends Vue {
 }
 @media (max-width: 480px) {
   .character {
-    .character-values {
-      font-size: 9px;
+    .character__list {
+      font-size: $font-mobile-regular;
       li {
         justify-content: stretch;
       }
-      .character-img {
+      .character__img {
         width: 65%;
       }
-      .favorite-btn,
-      .favorite {
+      .character__btn--add,
+      .character__btn--delete {
         padding: 0px;
       }
     }

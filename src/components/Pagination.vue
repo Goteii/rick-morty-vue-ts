@@ -1,19 +1,19 @@
 <template>
-  <div class="pages-container">
-    <ul class="pages">
-      <button class="pages-btn" @click="changePage('previous')">
+  <div class="pages">
+    <ul class="pages__list">
+      <button class="pages__btn" @click="changePage('previous')">
         <span>&#9668;</span>
       </button>
       <li
         v-for="pageNumber in totalPages"
         :key="pageNumber"
         @click="setPage(pageNumber)"
-        class="page"
+        class="pages__page"
         :class="{ active: currentPage === pageNumber }"
       >
         <span> {{ pageNumber }} </span>
       </li>
-      <button class="pages-btn" @click="changePage('next')">
+      <button class="pages__btn" @click="changePage('next')">
         <span>&#9658;</span>
       </button>
     </ul>
@@ -38,18 +38,18 @@ export default class Pagination extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.pages-container {
+.pages {
   position: fixed;
   bottom: 30px;
   left: 5%;
-  .pages {
+  .pages__list {
     background-color: red;
     display: flex;
     background-color: #ffffff;
     padding-top: 20px;
     height: 3.7em;
 
-    .pages-btn {
+    .pages__btn {
       background-color: red;
       padding: 12.5px;
       list-style-type: none;
@@ -67,11 +67,11 @@ export default class Pagination extends Vue {
       }
     }
 
-    .pages-btn:focus {
+    .pages__btn:focus {
       color: #11b0c8;
     }
 
-    .page {
+    .pages__page {
       padding: 15px;
       list-style-type: none;
       margin-left: 10px;
@@ -97,16 +97,16 @@ export default class Pagination extends Vue {
 }
 
 @media (max-width: 5200px) {
-  .pages-container {
+  .pages {
     bottom: 60px;
-    .pages {
-      .page {
+    .pages__list {
+      .pages__page {
         height: 3vh;
         span {
           font-size: 30px;
         }
       }
-      .pages-btn {
+      .pages__btn {
         height: 3vh;
         span {
           font-size: 30px;
@@ -116,16 +116,16 @@ export default class Pagination extends Vue {
   }
 }
 @media (max-width: 4200px) {
-  .pages-container {
+  .pages {
     bottom: 60px;
-    .pages {
-      .page {
+    .pages__list {
+      .pages__page {
         height: 3vh;
         span {
           font-size: 25px;
         }
       }
-      .pages-btn {
+      .pages__btn {
         height: 3vh;
         span {
           font-size: 25px;
@@ -135,16 +135,16 @@ export default class Pagination extends Vue {
   }
 }
 @media (max-width: 3500px) {
-  .pages-container {
+  .pages {
     bottom: 90px;
-    .pages {
-      .page {
+    .pages__list {
+      .pages__page {
         height: 4vh;
         span {
           font-size: 20px;
         }
       }
-      .pages-btn {
+      .pages__btn {
         height: 4vh;
         span {
           font-size: 20px;
@@ -154,16 +154,16 @@ export default class Pagination extends Vue {
   }
 }
 @media (max-width: 2560px) {
-  .pages-container {
+  .pages {
     bottom: 40px;
-    .pages {
-      .page {
+    .pages__list {
+      .pages__page {
         height: 4vh;
         span {
           font-size: 16px;
         }
       }
-      .pages-btn {
+      .pages__btn {
         height: 4vh;
         span {
           font-size: 16px;
@@ -173,12 +173,12 @@ export default class Pagination extends Vue {
   }
 }
 @media (max-width: 480px) {
-  .pages-container {
-    .pages {
-      .page {
+  .pages {
+    .pages__list {
+      .pages__page {
         height: 3vh;
       }
-      .pages-btn {
+      .pages__btn {
         height: 3vh;
       }
     }

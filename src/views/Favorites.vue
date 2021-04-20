@@ -1,9 +1,9 @@
 <template>
-  <div class="characters">
-    <ul class="characters-headers">
+  <div class="favorites">
+    <ul class="favorites__headers">
       <li v-for="header in headers" :key="header.id">{{ header }}</li>
     </ul>
-    <div class="loading" v-if="loading">
+    <div class="favorites__loading" v-if="loading">
       You don't have any favorite character :(
     </div>
     <template v-if="favorites.length > 0">
@@ -91,100 +91,75 @@ export default class Characters extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.characters {
+@import "../styles/styles.scss";
+.favorites {
   position: relative;
-  background-color: #e5eaf4;
+  background-color: $bg-color-dark-opacity;
 
-  .characters-headers {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
-    color: #a9b1bd;
-    padding: 1em;
-    width: 80%;
-    font-weight: 500;
+  .favorites__headers {
+    @include headers;
   }
 
-  .loading {
-    background-color: #fcfcfc;
-    display: flex;
-    padding: 2em;
-    justify-content: center;
-    font-size: 20px;
-    font-style: italic;
-  }
-  .error {
-    background-color: #fcfcfc;
-    display: flex;
-    padding: 2em;
-    justify-content: center;
-    font-size: 20px;
-    font-style: italic;
-    color: red;
+  .favorites__loading {
+    @include loading;
   }
 }
 
 @media (max-width: 5200px) {
-   .characters {
-    .characters-headers {
+  .favorites {
+    .favorites__headers {
       width: 90%;
-       justify-content: space-around;
-      font-size: 30px;
+      justify-content: space-around;
+      font-size: $font-retina-large;
     }
   }
 }
 @media (max-width: 4200px) {
-   .characters {
-    .characters-headers {
+  .favorites {
+    .favorites__headers {
       width: 87.5%;
-      font-size: 25px;
+      font-size: $font-retina-regular;
     }
   }
 }
 @media (max-width: 3500px) {
-   .characters {
-    .characters-headers {
+  .favorites {
+    .favorites__headers {
       width: 85%;
-      font-size: 20px;
+      font-size: $font-retina-small;
     }
   }
 }
 @media (max-width: 2560px) {
-  .characters {
-    .characters-headers {
+  .favorites {
+    .favorites__headers {
       width: 80%;
-      font-size: 16px;
+      font-size: $font-desktop-regular;
     }
   }
 }
 
-@media (max-width: 1920px) {
-  .characters {
-    .characters-headers {
-      width: 90%;
-      font-size: 16px;
-    }
-  }
-}
 @media (max-width: 1024px) {
-  .characters {
-    .characters-headers {
-      font-size: 12px;
+  .favorites {
+    .favorites__headers {
+      font-size: $font-desktop-small;
+      width: 85%;
     }
   }
 }
 @media (max-width: 768px) {
-  .characters {
-    .characters-headers {
+  .favorites {
+    .favorites__headers {
       width: 100%;
+      font-size: $font-tablet-regular;
     }
   }
 }
 @media (max-width: 480px) {
-  .characters {
-    .characters-headers {
+  .favorites__ {
+    .favorites__headers {
       justify-content: space-between;
-      font-size: 8px;
+      font-size: $font-mobile-regular;
     }
   }
 }
