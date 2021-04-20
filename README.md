@@ -1,24 +1,4 @@
-# rick-and-morty
+Link to deployed app:
+https://607ef3417f58d90008a75c10--suspicious-babbage-722b5a.netlify.app/
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For some reasons it has troubles with getting/saving data from/to local storage(it works good in local environment).
