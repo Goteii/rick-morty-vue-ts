@@ -5,15 +5,15 @@ import { CharactersApiI, FavoritesI } from "../models/models";
 @Module({ namespaced: true })
 class Favorites extends VuexModule {
   favorites: FavoritesI[] = [];
-  // loading = true;
+  loading = true;
 
   get getFavoriteCharacters(): FavoritesI[] {
     return this.favorites;
   }
 
-  // get getLoading(): boolean {
-  //   return this.loading;
-  // }
+  get getLoading(): boolean {
+    return this.loading;
+  }
 
   @Mutation
   deleteFavorite(id: string): void {
@@ -32,22 +32,22 @@ class Favorites extends VuexModule {
     this.favorites = favorites;
   }
 
-  // @Mutation
-  // loadingOff(): void {
-  //   if (this.favorites.length > 0) {
-  //     this.loading = false;
-  //   } else {
-  //     this.loading = true;
-  //   }
-  // }
+  @Mutation
+  loadingOff(): void {
+    if (this.favorites.length > 0) {
+      this.loading = false;
+    } else {
+      this.loading = true;
+    }
+  }
 
-  @Action
+  @Action({rawError: true})
   fetchFavorites(): void {
     const favorites: FavoritesI[] = JSON.parse(
       localStorage.getItem("favorites") || ""
     );
     this.context.commit("loadFavorites", favorites);
-    // this.context.commit("loadingOff");
+    this.context.commit("loadingOff");
   }
 }
 
