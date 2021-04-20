@@ -41,7 +41,7 @@ class Favorites extends VuexModule {
     }
   }
 
-  @Action({rawError: true})
+  @Action
   fetchFavorites(): void {
     const favorites: FavoritesI[] = JSON.parse(
       localStorage.getItem("favorites") || ""
