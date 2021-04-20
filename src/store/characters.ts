@@ -16,8 +16,11 @@ class Characters extends VuexModule {
     "Last Episode",
     "Add To Favorites",
   ];
-  searchPhrase = "r";
-  
+  searchPhrase = "";
+  currentPage = 1;
+  itemsPerPage = 5;
+  resultCount = 0;
+
   get getCharacters(): CharactersApiI[] {
     return this.characters;
   }
@@ -53,8 +56,8 @@ class Characters extends VuexModule {
     this.error = true;
   }
 
-  @Mutation 
-  updateMessage(e: { target: {value: string}}) {
+  @Mutation
+  updateMessage(e: { target: { value: string } }) {
     this.searchPhrase = e.target.value;
   }
 

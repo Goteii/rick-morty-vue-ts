@@ -40,6 +40,19 @@ $font-mobile-regular: 8px;
     background-color: $color-1;
 }
 
+@mixin pagination-btn {
+    padding: 12.5px;
+      list-style-type: none;
+      margin-left: 10px;
+      border: 1px solid $color-2;
+      border-radius: 5px;
+      background-color: $bg-color-light;
+      color: $color-2;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+}
+
 
 //loading and error style
 @mixin loading {
