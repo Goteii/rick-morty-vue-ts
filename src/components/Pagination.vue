@@ -1,19 +1,19 @@
 <template>
-  <div class="pages-container">
-    <ul class="pages">
-      <button class="pages-btn" @click="changePage('previous')">
+  <div class="pages">
+    <ul class="pages__list">
+      <button class="pages__btn" @click="changePage('previous')">
         <span>&#9668;</span>
       </button>
       <li
         v-for="pageNumber in totalPages"
         :key="pageNumber"
         @click="setPage(pageNumber)"
-        class="page"
+        class="pages__page"
         :class="{ active: currentPage === pageNumber }"
       >
         <span> {{ pageNumber }} </span>
       </li>
-      <button class="pages-btn" @click="changePage('next')">
+      <button class="pages__btn" @click="changePage('next')">
         <span>&#9658;</span>
       </button>
     </ul>
@@ -38,20 +38,20 @@ export default class Pagination extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.pages-container {
+.pages {
   position: fixed;
   bottom: 30px;
   left: 5%;
-  .pages {
+  .pages__list {
     background-color: red;
     display: flex;
     background-color: #ffffff;
     padding-top: 20px;
     height: 3.7em;
 
-    .pages-btn {
+    .pages__btn {
       background-color: red;
-      padding: 15px;
+      padding: 12.5px;
       list-style-type: none;
       margin-left: 10px;
       border: 1px solid #a9b1bd;
@@ -61,13 +61,17 @@ export default class Pagination extends Vue {
       cursor: pointer;
       display: flex;
       align-items: center;
+
+      span {
+        text-align: center;
+      }
     }
 
-    .pages-btn:focus {
+    .pages__btn:focus {
       color: #11b0c8;
     }
 
-    .page {
+    .pages__page {
       padding: 15px;
       list-style-type: none;
       margin-left: 10px;
@@ -78,6 +82,7 @@ export default class Pagination extends Vue {
       cursor: pointer;
       display: flex;
       align-items: center;
+      text-align: center;
 
       span {
         text-align: center;
@@ -91,42 +96,90 @@ export default class Pagination extends Vue {
   }
 }
 
-@media (min-width: 1025px) {
-  .characters {
-    .characters-headers {
-      width: 80%;
-      justify-content: space-around;
-      font-size: 16px;
+@media (max-width: 5200px) {
+  .pages {
+    bottom: 60px;
+    .pages__list {
+      .pages__page {
+        height: 3vh;
+        span {
+          font-size: 30px;
+        }
+      }
+      .pages__btn {
+        height: 3vh;
+        span {
+          font-size: 30px;
+        }
+      }
     }
   }
 }
-@media (max-width: 1024px) {
-  .characters {
-    .characters-headers {
-      width: 90%;
-      justify-content: space-around;
-      font-size: 12px;
+@media (max-width: 4200px) {
+  .pages {
+    bottom: 60px;
+    .pages__list {
+      .pages__page {
+        height: 3vh;
+        span {
+          font-size: 25px;
+        }
+      }
+      .pages__btn {
+        height: 3vh;
+        span {
+          font-size: 25px;
+        }
+      }
     }
   }
 }
-@media (max-width: 768px) {
-  .characters {
-    .characters-headers {
-      width: 100%;
-      justify-content: space-around;
-      font-size: 12px;
+@media (max-width: 3500px) {
+  .pages {
+    bottom: 90px;
+    .pages__list {
+      .pages__page {
+        height: 4vh;
+        span {
+          font-size: 20px;
+        }
+      }
+      .pages__btn {
+        height: 4vh;
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 2560px) {
+  .pages {
+    bottom: 40px;
+    .pages__list {
+      .pages__page {
+        height: 4vh;
+        span {
+          font-size: 16px;
+        }
+      }
+      .pages__btn {
+        height: 4vh;
+        span {
+          font-size: 16px;
+        }
+      }
     }
   }
 }
 @media (max-width: 480px) {
-  .pages-container {
-    .pages {
-      .page {
-        text-align: center;
-        height: 3.5vh;
+  .pages {
+    .pages__list {
+      .pages__page {
+        height: 3vh;
       }
-      .pages-btn {
-        height: 3.5vh;
+      .pages__btn {
+        height: 3vh;
       }
     }
   }

@@ -1,8 +1,8 @@
 <template>
-  <div class="character">
-    <ul class="character-values">
+  <div class="favorite">
+    <ul class="favorite__list">
       <li>
-        <img :src="photo" alt="rick" class="character-img" />
+        <img :src="photo" :alt="name + '_icon'" class="favorite__img" />
       </li>
       <li>{{ characterID }}</li>
       <li>{{ name }}</li>
@@ -28,7 +28,10 @@
       <li>{{ species }}</li>
       <li>{{ lastEpisode }}</li>
       <li>
-        <button class="favorite-btn" @click="deleteFavorite(characterID)">
+        <button
+          class="favorite__btn--delete"
+          @click="deleteFavorite(characterID)"
+        >
           <img src="../assets/white-star.png" />
         </button>
       </li>
@@ -55,19 +58,13 @@ export default class Character extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.character {
+@import "../styles/styles.scss";
+.favorite {
   position: relative;
-  background-color: #ffffff;
+  background-color: $bg-color-light;
 
-  .character-values {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
-    color: #a9b1bd;
-    padding: 1em;
-    align-items: center;
-    width: 75%;
-    height: 12vh;
+  .favorite__list {
+    @include records;
 
     li {
       flex: 1;
@@ -75,12 +72,8 @@ export default class Character extends Vue {
       text-align: center;
     }
 
-    .favorite-btn {
-      border-radius: 5px;
-      border-color: #11b0c8;
-      background-color: #11b0c8;
-      border: 2px solid #11b0cb;
-      cursor: pointer;
+    .favorite__btn--delete {
+      @include unfavorite-btn;
 
       img {
         display: flex;
@@ -89,82 +82,121 @@ export default class Character extends Vue {
   }
   hr {
     height: 1px;
-    background-color: #e5eaf4;
+    background-color: $bg-color-dark;
     border: none;
   }
 }
 
-@media (min-width: 1025px) {
-  .character {
-    .character-values {
-      display: flex;
-      width: 75%;
-      font-size: 16px;
+@media (max-width: 5200px) {
+  .favorite {
+    .favorite__list {
+      width: 87.5%;
+      font-size: $font-retina-large;
       padding-top: 1em;
+      height: 17.5vh;
       li {
         justify-content: center;
       }
-      .character-img {
-        width: 35%;
+      .favorite__img {
+        width: 25%;
       }
-      .favorite-btn {
+      .favorite__btn--delete {
+        padding: 12px;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+@media (max-width: 4200px) {
+  .favorite {
+    .favorite__list {
+      width: 85%;
+      font-size: $font-retina-regular;
+      height: 16vh;
+
+      .favorite__img {
+        width: 27.5%;
+      }
+    }
+  }
+}
+@media (max-width: 3500px) {
+  .favorite {
+    .favorite__list {
+      font-size: $font-retina-small;
+      height: 15vh;
+      width: 82.5%;
+
+      .favorite__img {
+        width: 30%;
+      }
+    }
+  }
+}
+@media (max-width: 2560px) {
+  .favorite {
+    .favorite__list {
+      font-size: $font-desktop-regular;
+      width: 77.5%;
+
+      .favorite__btn--delete {
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+@media (max-width: 1920px) {
+  .favorite {
+    .favorite__list {
+      display: flex;
+      height: 12vh;
+
+      .favorite__img {
+        width: 32.5%;
+      }
+      .favorite__btn--delete {
         padding: 5px;
       }
     }
   }
 }
 @media (max-width: 1024px) {
-  .character {
-    .character-values {
-      display: flex;
-      width: 90%;
-      font-size: 16px;
-      padding-top: 1em;
-      li {
-        justify-content: center;
-      }
-      .character-img {
+  .favorite {
+    .favorite__list {
+      font-size: $font-desktop-small;
+      width: 82.5%;
+      .favorite__img {
         width: 50%;
       }
-      .favorite-btn {
+      .favorite__btn--delete {
         padding: 2px;
       }
     }
   }
 }
 @media (max-width: 768px) {
-  .character {
-    .character-values {
-      display: flex;
+  .favorite {
+    .favorite__list {
       width: 100%;
-      font-size: 12px;
-      padding-top: 1em;
+      font-size: $font-tablet-regular;
       li {
         justify-content: space-around;
-      }
-      .character-img {
-        width: 50%;
-      }
-      .favorite-btn {
-        padding: 2px;
       }
     }
   }
 }
 @media (max-width: 480px) {
-  .character {
-    .character-values {
-      display: flex;
-      width: 100%;
-      font-size: 8px;
-      padding-top: 1em;
+  .favorite {
+    .favorite__list {
+      font-size: $font-mobile-regular;
       li {
         justify-content: stretch;
       }
-      .character-img {
+      .favorite__img {
         width: 60%;
       }
-      .favorite-btn {
+      .favorite__btn--delete {
         padding: 0px;
       }
     }

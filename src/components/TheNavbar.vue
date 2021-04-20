@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <img alt="rick-morty-logo" class="logo-img" src="../assets/logo.png" />
+    <img alt="rick-morty-logo" class="navbar__logo" src="../assets/logo.png" />
     <TheSearchbar />
   </nav>
 </template>
@@ -19,25 +19,28 @@ export default class TheNavbar extends Vue {}
 <style lang="scss" scoped>
 .navbar {
   position: relative;
-  top: 0;
   width: 100%;
   padding: 30px;
   display: flex;
-  align-content: center;
   padding-left: 5%;
 }
-@media (min-width: 1025px) {
-  .logo-img {
+@media (max-width: 3000px) {
+  .navbar__logo {
+    width: 11%;
+  }
+}
+@media (max-width: 2000px) {
+  .navbar__logo {
     width: 12.5%;
   }
 }
 @media (max-width: 1024px) {
-  .logo-img {
+  .navbar__logo {
     width: 20%;
   }
 }
 @media (max-width: 768px) {
-  .logo-img {
+  .navbar__logo {
     width: 25%;
   }
 }
@@ -46,7 +49,7 @@ export default class TheNavbar extends Vue {}
     margin-left: 0%;
     justify-content: space-around;
   }
-  .logo-img {
+  .navbar__logo {
     width: 45%;
   }
 }

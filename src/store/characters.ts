@@ -7,8 +7,6 @@ class Characters extends VuexModule {
   characters: CharactersApiI[] = [];
   loading = true;
   error = false;
-  // works only in characters.vue with dummy input
-  searchPhrase = "";
   headers = [
     "Photo",
     "Character ID",
@@ -18,7 +16,8 @@ class Characters extends VuexModule {
     "Last Episode",
     "Add To Favorites",
   ];
-
+  searchPhrase = "r";
+  
   get getCharacters(): CharactersApiI[] {
     return this.characters;
   }
@@ -52,6 +51,11 @@ class Characters extends VuexModule {
   @Mutation
   errorDetected(): void {
     this.error = true;
+  }
+
+  @Mutation 
+  updateMessage(e: { target: {value: string}}) {
+    this.searchPhrase = e.target.value;
   }
 
   @Mutation
