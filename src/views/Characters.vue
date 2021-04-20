@@ -7,14 +7,6 @@
     <div class="characters__error" v-if="error">
       Unexpected error, please try again later!
     </div>
-    <!-- dummy input which gets data from characters.ts module and filters characters if v-for="character in resultSearching"--->
-    <!-- <input
-      class="form-control"
-      type="text"
-      placeholder="Search"
-      :value="searchPhrase"
-      @input="handleInput"
-    /> -->
     <template v-if="characters.length > 0">
       <Character
         v-for="character in paginate"
@@ -41,10 +33,10 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Character from "./Character.vue";
-import { CharactersApiI } from "../models/models";
-import Pagination from "../components/Pagination.vue";
 import { Getter, Mutation } from "vuex-class";
+import Character from "./Character.vue";
+import Pagination from "../components/Pagination.vue";
+import { CharactersApiI } from "../models/models";
 @Component({
   components: {
     Character,
@@ -60,28 +52,33 @@ export default class Characters extends Vue {
   @Mutation("characters/updateMessage") updateMessage!: (e: {
     target: { value: string };
   }) => void;
+
   currentPage = 1;
   itemsPerPage = 5;
   resultCount = 0;
-  get resultSearching(): CharactersApiI[] {
-    return this.characters.filter((character) => {
-      return character.name
-        .toLowerCase()
-        .match(this.searchPhrase.toLowerCase());
-      // .match(this.$store.state.searchbar.searchPhrase.toLowerCase())
-    });
-  }
+
   get totalPages(): number {
     return Math.ceil(this.resultCount / this.itemsPerPage);
   }
   get paginate(): CharactersApiI[] {
     this.resultCount = this.characters.length;
-    if (this.currentPage >= this.totalPages) {
+    const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
+
+    const charactersFiltered = this.characters.filter((character) => {
+      return character.name
+        .toLowerCase()
+        .match(this.searchPhrase.toLowerCase());
+    });
+
+    if (this.currentPage >= this.totalPages || this.currentPage === 0) {
       this.currentPage = this.totalPages;
     }
-    const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
-    return this.characters.slice(index, index + this.itemsPerPage);
+
+    this.resultCount = charactersFiltered.length;
+
+    return charactersFiltered.slice(index, index + this.itemsPerPage);
   }
+
   handleInput(e: { target: { value: string } }): void {
     this.updateMessage(e);
   }

@@ -10,13 +10,11 @@
 import { Vue, Component } from "vue-property-decorator";
 import TheNavbar from "./components/TheNavbar.vue";
 import TheCategories from "./components/TheCategories.vue";
-import Favorites from "./views/Favorites.vue";
 import { Action } from "vuex-class";
 @Component({
   components: {
     TheNavbar,
     TheCategories,
-    Favorites,
   },
 })
 export default class App extends Vue {

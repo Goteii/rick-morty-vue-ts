@@ -38,29 +38,18 @@ export default class Pagination extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/styles.scss";
 .pages {
   position: fixed;
-  bottom: 30px;
   left: 5%;
   .pages__list {
-    background-color: red;
     display: flex;
-    background-color: #ffffff;
+    background-color: $bg-color-light;
     padding-top: 20px;
     height: 3.7em;
 
     .pages__btn {
-      background-color: red;
-      padding: 12.5px;
-      list-style-type: none;
-      margin-left: 10px;
-      border: 1px solid #a9b1bd;
-      border-radius: 5px;
-      background-color: #fcfcfc;
-      color: #a9b1bd;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
+      @include pagination-btn;
 
       span {
         text-align: center;
@@ -68,21 +57,12 @@ export default class Pagination extends Vue {
     }
 
     .pages__btn:focus {
-      color: #11b0c8;
+      color: $color-1;
     }
 
     .pages__page {
+      @include pagination-btn;
       padding: 15px;
-      list-style-type: none;
-      margin-left: 10px;
-      border: 1px solid #a9b1bd;
-      border-radius: 5px;
-      color: #a9b1bd;
-      background-color: #ffffff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      text-align: center;
 
       span {
         text-align: center;
@@ -90,8 +70,8 @@ export default class Pagination extends Vue {
     }
     .active {
       color: white;
-      background-color: #11b0c8;
-      border-color: #11b0c8;
+      background-color: $color-1;
+      border-color: $color-1;
     }
   }
 }
@@ -103,13 +83,13 @@ export default class Pagination extends Vue {
       .pages__page {
         height: 3vh;
         span {
-          font-size: 30px;
+          font-size: $font-retina-large;
         }
       }
       .pages__btn {
         height: 3vh;
         span {
-          font-size: 30px;
+          font-size: $font-retina-large;
         }
       }
     }
@@ -122,13 +102,13 @@ export default class Pagination extends Vue {
       .pages__page {
         height: 3vh;
         span {
-          font-size: 25px;
+          font-size: $font-retina-regular;
         }
       }
       .pages__btn {
         height: 3vh;
         span {
-          font-size: 25px;
+          font-size: $font-retina-regular;
         }
       }
     }
@@ -141,13 +121,13 @@ export default class Pagination extends Vue {
       .pages__page {
         height: 4vh;
         span {
-          font-size: 20px;
+          font-size: $font-retina-small;
         }
       }
       .pages__btn {
         height: 4vh;
         span {
-          font-size: 20px;
+          font-size: $font-retina-small;
         }
       }
     }
@@ -155,19 +135,32 @@ export default class Pagination extends Vue {
 }
 @media (max-width: 2560px) {
   .pages {
-    bottom: 40px;
+    bottom: 50px;
     .pages__list {
       .pages__page {
         height: 4vh;
         span {
-          font-size: 16px;
+          font-size: $font-desktop-regular;
         }
       }
       .pages__btn {
         height: 4vh;
         span {
-          font-size: 16px;
+          font-size: $font-desktop-regular;
         }
+      }
+    }
+  }
+}
+@media (max-width: 1920px) {
+  .pages {
+    bottom: 20px;
+    .pages__list {
+      .pages__page {
+        height: 3.5vh;
+      }
+      .pages__btn {
+        height: 3.5vh;
       }
     }
   }

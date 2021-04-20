@@ -33,8 +33,8 @@
 import { Vue, Component } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import Favorite from "./Favorite.vue";
-import { FavoritesI } from "../models/models";
 import Pagination from "../components/Pagination.vue";
+import { FavoritesI } from "../models/models";
 @Component({
   components: {
     Favorite,

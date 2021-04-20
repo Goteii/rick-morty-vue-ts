@@ -56,8 +56,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { FavoritesI } from "../models/models";
 import { Mutation } from "vuex-class";
+import { FavoritesI } from "../models/models";
 @Component({})
 export default class Character extends Vue {
   @Mutation("favorites/addFavorite") addFavorite!: (
@@ -76,7 +76,6 @@ export default class Character extends Vue {
   isFavorite = false;
   toggle(): void {
     this.isFavorite = !this.isFavorite;
-    console.log(this.isFavorite);
   }
 }
 </script>
