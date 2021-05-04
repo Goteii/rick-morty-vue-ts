@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Favorites from "./favorites";
 import Characters from "./characters";
-import Searchbar from "./searchbar";
 
 import { loadFavoritesToLocalStorage } from "../utils/utils";
 
@@ -11,7 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   actions: {
     loadFavoritesToLocalStorage() {
-      if (localStorage.getItem("favorites")) {
+      if (!localStorage.getItem("favorites")) {
         loadFavoritesToLocalStorage();
       }
     },
@@ -19,6 +18,5 @@ export default new Vuex.Store({
   modules: {
     favorites: Favorites,
     characters: Characters,
-    searchbar: Searchbar,
   },
 });
