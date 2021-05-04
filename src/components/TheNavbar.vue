@@ -1,12 +1,27 @@
 <template>
   <nav class="navbar">
-    <img alt="rick-morty-logo" class="navbar__logo" src="../assets/logo.png" />
+    <router-link to="/" class="navbar__link">
+      <img
+        alt="rick-morty-logo"
+        class="navbar__logo"
+        src="../assets/logo.png"
+      />
+    </router-link>
     <div class="navbar__searchbar">
       <input
+        v-if="this.$route.path === '/favorites'"
         class="searchbar__input"
         type="search"
         placeholder="Start typing to search..."
-        :value="searchPhrase"
+        :value="handleInputGen"
+        @input="handleInputFav"
+      />
+      <input
+        v-else
+        class="searchbar__input"
+        type="search"
+        placeholder="Start typing to search..."
+        :value="handleInputGen"
         @input="handleInput"
       />
     </div>
@@ -19,11 +34,25 @@ import { Getter, Mutation } from "vuex-class";
 @Component({})
 export default class TheNavbar extends Vue {
   @Getter("characters/getSearchPhrase") searchPhrase!: string;
+  @Getter("favorites/getSearchPhrase") favSearchPhrase!: string;
   @Mutation("characters/updateMessage") updateMessage!: (e: {
     target: { value: string };
   }) => void;
+  @Mutation("favorites/updateFavMessage") updateFavMessage!: (e: {
+    target: { value: string };
+  }) => void;
+  handleInputFav(e: { target: { value: string } }): void {
+    this.updateFavMessage(e);
+  }
   handleInput(e: { target: { value: string } }): void {
     this.updateMessage(e);
+  }
+  get handleInputGen(): string {
+    if (this.$route.path === "/favorites") {
+      return this.favSearchPhrase;
+    } else {
+      return this.searchPhrase;
+    }
   }
 }
 </script>
@@ -94,7 +123,7 @@ export default class TheNavbar extends Vue {
         padding: 20px;
       }
     }
-    .navbar__logo {
+    .navbar__link {
       width: 11%;
     }
   }
@@ -113,12 +142,15 @@ export default class TheNavbar extends Vue {
         padding: 15px;
       }
     }
+    .navbar__link {
+      width: 13.5%;
+      display: flex;
+      align-self: center;
+      .navbar__logo {
+        width: 100%;
+      }
+    }
   }
-  .navbar__logo {
-    width: 12.5%;
-  }
-}
-@media (max-width: 2000px) {
 }
 @media (max-width: 1024px) {
   .navbar {
@@ -128,9 +160,9 @@ export default class TheNavbar extends Vue {
         font-size: $font-desktop-small;
       }
     }
-  }
-  .navbar__logo {
-    width: 20%;
+    .navbar__link {
+      width: 20%;
+    }
   }
 }
 @media (max-width: 768px) {
@@ -141,9 +173,9 @@ export default class TheNavbar extends Vue {
         font-size: $font-tablet-regular;
       }
     }
-  }
-  .navbar__logo {
-    width: 25%;
+    .navbar__link {
+      width: 25%;
+    }
   }
 }
 @media (max-width: 480px) {
@@ -156,9 +188,12 @@ export default class TheNavbar extends Vue {
         font-size: $font-mobile-regular;
       }
     }
-  }
-  .navbar__logo {
-    width: 45%;
+    .navbar__link {
+      width: 45%;
+    }
+    .navbar__logo {
+      width: 100%;
+    }
   }
 }
 </style>

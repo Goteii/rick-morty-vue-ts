@@ -6,6 +6,7 @@ import { CharactersApiI, FavoritesI } from "../models/models";
 class Favorites extends VuexModule {
   favorites: FavoritesI[] = [];
   loading = true;
+  searchPhrase = "";
 
   get getFavoriteCharacters(): FavoritesI[] {
     return this.favorites;
@@ -13,6 +14,10 @@ class Favorites extends VuexModule {
 
   get getLoading(): boolean {
     return this.loading;
+  }
+
+  get getSearchPhrase(): string {
+    return this.searchPhrase;
   }
 
   @Mutation
@@ -24,7 +29,6 @@ class Favorites extends VuexModule {
   addFavorite(character: CharactersApiI): void {
     this.favorites.push(character);
     this.favorites = [...new Set(this.favorites)];
-    store.dispatch("loadFavoritesToLocalStorage");
   }
 
   @Mutation
@@ -39,6 +43,39 @@ class Favorites extends VuexModule {
     } else {
       this.loading = true;
     }
+  }
+
+  @Mutation
+  updateFavMessage(e: { target: { value: string } }): void {
+    this.searchPhrase = e.target.value;
+  }
+
+  @Mutation
+  resultSearching(newValue: string): CharactersApiI[] {
+    this.searchPhrase = newValue;
+    return this.favorites.filter((character) => {
+      return character.name
+        .toLowerCase()
+        .match(this.searchPhrase.toLowerCase());
+    });
+  }
+
+  @Action
+  setResultSearching(newValue: string): void {
+    this.context.commit("resultSearching", newValue);
+  }
+
+  @Action
+  updateLocalStorageFavorites(): void {
+    const updatedStoreFavorites = this.context.getters['getFavoriteCharacters'];
+    const favoritesJson = JSON.stringify(updatedStoreFavorites);
+    localStorage.setItem('favorites', favoritesJson);
+  }
+
+  @Action
+  addCharacterToFav(character: CharactersApiI): void {
+    this.context.commit('addFavorite', character);
+    this.context.dispatch('updateLocalStorageFavorites');
   }
 
   @Action

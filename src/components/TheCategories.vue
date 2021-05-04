@@ -30,6 +30,10 @@
         text-decoration: underline solid 3px;
         text-underline-offset: 5px;
       }
+
+      &:hover {
+        color: $color-1;
+      }
     }
   }
 }

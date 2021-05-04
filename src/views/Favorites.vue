@@ -3,9 +3,6 @@
     <ul class="favorites__headers">
       <li v-for="header in headers" :key="header.id">{{ header }}</li>
     </ul>
-    <!-- <div class="favorites__loading" v-if="loading">
-      You don't have any favorite character :(
-    </div> -->
     <template v-if="favorites.length > 0">
       <Favorite
         v-for="character in paginate"
@@ -44,6 +41,7 @@ import { FavoritesI } from "../models/models";
 export default class Characters extends Vue {
   @Getter("favorites/getFavoriteCharacters") favorites!: FavoritesI[];
   @Getter("favorites/getLoading") loading!: boolean;
+  @Getter("favorites/getSearchPhrase") favSearchPhrase!: string;
   @Action("favorites/fetchFavorites") fetchFavorites!: () => void;
   headers = [
     "Photo",
@@ -66,11 +64,21 @@ export default class Characters extends Vue {
   }
   get paginate(): FavoritesI[] {
     this.resultCount = this.favorites.length;
-    if (this.currentPage >= this.totalPages) {
+    const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
+
+    const favoritesFiltered = this.favorites.filter((favorite) => {
+      return favorite.name
+        .toLowerCase()
+        .match(this.favSearchPhrase.toLowerCase());
+    });
+
+    if (this.currentPage >= this.totalPages || this.currentPage === 0) {
       this.currentPage = this.totalPages;
     }
-    const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
-    return this.favorites.slice(index, index + this.itemsPerPage);
+
+    this.resultCount = favoritesFiltered.length;
+
+    return favoritesFiltered.slice(index, index + this.itemsPerPage);
   }
   setPage(pageNumber: number): void {
     this.currentPage = pageNumber;
@@ -99,10 +107,6 @@ export default class Characters extends Vue {
   .favorites__headers {
     @include headers;
   }
-
-  // .favorites__loading {
-  //   @include loading;
-  // }
 }
 
 @media (max-width: 5200px) {

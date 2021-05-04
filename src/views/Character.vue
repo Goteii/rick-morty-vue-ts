@@ -32,7 +32,7 @@
           v-if="!isFavorite"
           class="character__btn--add"
           @click="
-            addFavorite(character);
+            addCharacterToFav(character);
             toggle();
           "
         >
@@ -56,13 +56,13 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { Mutation } from "vuex-class";
-import { FavoritesI } from "../models/models";
+import { Mutation, Action } from "vuex-class";
+import { CharactersApiI } from "../models/models";
 @Component({})
 export default class Character extends Vue {
-  @Mutation("favorites/addFavorite") addFavorite!: (
-    character: FavoritesI
-  ) => void;
+  @Action("favorites/addCharacterToFav") addCharacterToFav!: (
+    character: CharactersApiI
+  ) => CharactersApiI;
   @Mutation("favorites/deleteFavorite") deleteFavorite!: (
     characterID: string
   ) => void;
@@ -72,7 +72,7 @@ export default class Character extends Vue {
   @Prop({ required: true, type: String }) readonly gender!: string;
   @Prop({ required: true, type: String }) readonly species!: string;
   @Prop({ required: true, type: String }) readonly lastEpisode!: string;
-  @Prop({ required: true, type: Object }) readonly character!: FavoritesI;
+  @Prop({ required: true, type: Object }) readonly character!: CharactersApiI;
   isFavorite = false;
   toggle(): void {
     this.isFavorite = !this.isFavorite;
